@@ -1,0 +1,8 @@
+<% if(alert.message != "") {%>
+<div class="alert alert-dismissible fade show alert-<%= alert.status%>" role="alert">
+  <%= alert.message%>
+  <button type="button" class="btn" data-dismiss="alert" aria-label="Close">
+    x
+  </button>
+</div>
+<% } %>
