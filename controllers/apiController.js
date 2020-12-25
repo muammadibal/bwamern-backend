@@ -18,7 +18,7 @@ module.exports = {
           select: "_id imageUrl",
         });
 
-      const category = await Category.find()
+      const categories = await Category.find()
         .select("_id name")
         .limit(3)
         .populate({
@@ -37,13 +37,13 @@ module.exports = {
       const treasure = await Activity.find();
       const city = await Item.find();
 
-      for (let i = 0; i < category.length; i++) {
-        for (let x = 0; x < category[i].itemId.length; x++) {
-          const item = await Item.findOne({ _id: category[i].itemId[x]._id });
+      for (let i = 0; i < categories.length; i++) {
+        for (let x = 0; x < categories[i].itemId.length; x++) {
+          const item = await Item.findOne({ _id: categories[i].itemId[x]._id });
           item.isPopular = false;
           await item.save();
 
-          if (category[i].itemId[0] === category[i].itemId[x]) {
+          if (categories[i].itemId[0] === categories[i].itemId[x]) {
             item.isPopular = true;
             await item.save();
           }
@@ -68,7 +68,7 @@ module.exports = {
           cities: city.length,
         },
         mostPicked,
-        category,
+        categories,
         testimonial,
       });
     } catch (error) {
